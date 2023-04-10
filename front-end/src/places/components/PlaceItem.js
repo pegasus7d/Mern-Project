@@ -1,7 +1,7 @@
 import Card from "../../shared/components/UIElements/Card";
 import Map from "../../shared/components/UIElements/Map";
 import Modal from "../../shared/components/UIElements/Modal";
-import Button from "../../shared/FormElemets/Button";
+import Button from "../../shared/components/FormElemets/Button";
 import "./PlaceItem.css";
 import { useState } from "react";
 import React from "react";
