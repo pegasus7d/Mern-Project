@@ -42,8 +42,13 @@ const UpdatePlace = () => {
       </div>
     );
   }
+
+  const placeSubmitHandler= event =>{
+    event.preventDefault();
+    console.log(identifiedPlace)
+  };
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -66,7 +71,7 @@ const UpdatePlace = () => {
         value={identifiedPlace.description}
         valid={true}
       />
-      <Button type="submit" disabled={true}>UPDATE PLACE</Button>
+      <Button type="submit" disabled={false}>UPDATE PLACE</Button>
       
     </form>
   );
