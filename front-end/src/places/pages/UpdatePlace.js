@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import Input from "../../shared/components/FormElemets/Input";
 import Button from "../../shared/components/FormElemets/Button";
+import Card from "../../shared/components/UIElements/Card";
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
+import { useEffect ,useState} from "react";
 import "./PlaceForm.css";
 
 const DUMMY_PLACES = [
@@ -36,35 +38,74 @@ const DUMMY_PLACES = [
 
 const UpdatePlace = () => {
   const placeId = useParams().placeId;
-
+  const [isLoading, setIsLoading] = useState(true);
 
   
-  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
-  const [formState,inputHandler]=useForm({
-    title:{
-      value:identifiedPlace.title,
-      isValid:true
+  
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      title: {
+        value: '',
+        isValid: false
+      },
+      description: {
+        value: '',
+        isValid: false
+      }
     },
-    description:{
-      value:identifiedPlace.description,
-      isValid:true
-    },
+    false
+  );
+  const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
 
-  },true);
+  useEffect(() => {
+    if(identifiedPlace){
+      setFormData(
+        {
+          title: {
+            value: identifiedPlace.title,
+            isValid: true
+          },
+          description: {
+            value: identifiedPlace.description,
+            isValid: true
+          }
+        },
+        true
+      );
+
+    }
+    
+    setIsLoading(false);
+  }, [setFormData, identifiedPlace]);
+
+  const placeUpdateSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
   if (!identifiedPlace) {
     return (
       <div className="center">
-        <h2>Could not find Place</h2>
+        <Card>
+        <h2>Could not find place!</h2>
+        </Card>
       </div>
     );
   }
 
-  const placeSubmitHandler= event =>{
-    event.preventDefault();
-    console.log(identifiedPlace)
-  };
+  if (isLoading) {
+    return (
+      <div className="center">
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
+ 
+ 
   return (
-    <form className="place-form" onSubmit={placeSubmitHandler}>
+    formState.inputs.title.value &&
+    <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
       <Input
         id="title"
         element="input"
