@@ -13,7 +13,7 @@ router.post("/signup",[
       .not()
       .isEmpty(),
     check('email')
-      .normalizeEmail() // Test@test.com => test@test.com
+      .normalizeEmail() 
       .isEmail(),
     check('password').isLength({ min: 6 })
   ], usersController.signup);
