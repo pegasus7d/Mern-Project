@@ -4,5 +4,6 @@ class HttpError extends Error {
     this.code = errorCode; // Adds a "code" property
   }
 }
-
+// Inheritance is used by using the word extends
 module.exports = HttpError;
+
