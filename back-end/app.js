@@ -1,3 +1,5 @@
+const fs =require('fs');
+const path=require('path');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -8,6 +10,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use('/uploads/images',express.static(path.join('uploads','images')));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,6 +32,9 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
+  if(req.file){
+    fs.unlink(req.file.path,(err)=>{console.log(err)})
+  }
   if (res.headerSent) {
     return next(error);
   }
@@ -37,7 +43,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb+srv://<username>:<password>@cluster0.whplxzw.mongodb.net/mern-project?retryWrites=true&w=majority")
+  .connect("mongodb+srv://<username>:<password>7d@cluster0.whplxzw.mongodb.net/mern-project?retryWrites=true&w=majority")
   .then(() => {
 
   })

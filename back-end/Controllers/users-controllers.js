@@ -50,7 +50,7 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image:"https://upload.wikimedia.org/wikipedia/commons/3/38/Hogwarts_model_studio_tour.jpg",
+    image:req.file.path,
     password,
     places:[]
   });
