@@ -1,3 +1,4 @@
+const fs =require('fs');
 const HttpError = require("../models/http-error");
 const { v4: uuidv4 } = require("uuid");
 
@@ -196,6 +197,8 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
+  const imagePath=place.image;
+
   try {
     const sess=await mongoose.startSession();
     sess.startTransaction();
@@ -210,6 +213,7 @@ const deletePlace = async (req, res, next) => {
     );
     return next(error);
   }
+  fs.unlink(imagePath, (err)=>{console.log(err)});
 
   res.status(200).json({ message: "Deleted place." });
 };
