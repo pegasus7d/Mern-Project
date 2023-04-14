@@ -99,7 +99,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/3/38/Hogwarts_model_studio_tour.jpg",
+     req.file.path,
     creator,
   });
 
