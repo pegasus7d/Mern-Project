@@ -43,7 +43,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb+srv://<username>:<password>@cluster0.whplxzw.mongodb.net/mern-project?retryWrites=true&w=majority")
+  .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.whplxzw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
   .then(() => {
 
   })
